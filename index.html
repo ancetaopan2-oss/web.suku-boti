@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Katalog Edukasi Suku Boti TTS - Selamat Datang & Galeri</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Aksesibel (WCAG AAA) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        boti: {
+                            dark: '#14100E',      /* Latar Gelap Khas Kayu Ume Kbubu */
+                            red: '#7C1C1C',       /* Warna Merah Tenun Ikat */
+                            gold: '#D4AF37',      /* Elemen Highlight Budaya */
+                            sand: '#F3ECE0',      /* Teks Utama Kontras Tinggi */
+                            muted: '#A0988E',     /* Teks Sekunder */
+                            card: '#221A16'       /* Latar Belakang Kartu */
+                        }
+                    },
+                    fontFamily: {
+                        cinzel: ['Cinzel', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Animasi Spinner Putar Etnik */
+        @keyframes spin-slow {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .animate-spin-slow {
+            animation: spin-slow 8s linear infinite;
+        }
+
+        /* Transisi Smooth Loading Fade Out */
+        #loading-screen {
+            transition: opacity 0.8s ease-in-out, visibility 0.8s;
+        }
+        #loading-screen.fade-out {
+            opacity: 0;
+            visibility: hidden;
+        }
+    </style>
+</head>
+<body class="bg-boti-dark text-boti-sand font-sans antialiased min-h-screen flex flex-col justify-between selection:bg-boti-gold selection:text-boti-dark overflow-hidden" id="main-body">
+
+    <!-- ========================================== -->
+    <!-- 1. LOADING / SPLASH SCREEN MASUK (INTERAKTIF) -->
+    <!-- ========================================== -->
+    <div id="loading-screen" class="fixed inset-0 z-50 bg-boti-dark flex flex-col items-center justify-center p-6 text-center">
+        <div class="absolute inset-0 bg-[radial-gradient(#7C1C1C_1px,transparent_1px)] [background-size:20px_20px] opacity-20"></div>
+
+        <div class="relative z-10 max-w-md w-full flex flex-col items-center">
+            <div class="relative w-28 h-28 mb-8 flex items-center justify-center">
+                <div class="absolute inset-0 border-2 border-dashed border-boti-gold/60 rounded-full animate-spin-slow"></div>
+                <div class="absolute inset-2 border border-boti-red rounded-full animate-ping opacity-25"></div>
+                <div class="w-16 h-16 rounded-full bg-boti-red border border-boti-gold flex items-center justify-center shadow-2xl shadow-boti-red/50">
+                    <i class="fa-solid fa-crown text-boti-gold text-2xl"></i>
+                </div>
+            </div>
+
+            <span class="text-boti-gold font-mono text-xs font-bold uppercase tracking-widest mb-2 block">
+                Selamat Datang Di Katalog
+            </span>
+            <h1 class="font-cinzel text-2xl sm:text-3xl font-extrabold text-white mb-4 tracking-wider">
+                SUKU BOTI
+            </h1>
+
+            <div class="w-full bg-black/60 border border-white/10 h-2 rounded-full overflow-hidden mb-4 p-0.5">
+                <div id="progress-bar" class="bg-gradient-to-r from-boti-red via-amber-500 to-boti-gold h-full w-0 rounded-full transition-all duration-300 ease-out"></div>
+            </div>
+
+            <div class="flex justify-between w-full text-[11px] font-mono text-boti-muted mb-8">
+                <span id="loading-status">Menyiapkan aset kebudayaan...</span>
+                <span id="loading-percentage" class="text-boti-gold font-bold">0%</span>
+            </div>
+
+            <div class="p-4 bg-boti-card/80 border border-boti-gold/20 rounded-2xl text-xs text-boti-sand italic min-h-[70px] flex items-center justify-center w-full shadow-lg">
+                <p id="boti-quote" class="transition-opacity duration-500 opacity-100">
+                    "Tabe, Uis Neno Uis Pah — Salam penghormatan kepada Dewa Langit & Bumi."
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ========================================== -->
+    <!-- 2. NAVIGATION BAR PERMANEN -->
+    <!-- ========================================== -->
+    <header class="sticky top-0 z-40 bg-boti-dark/95 border-b border-boti-gold/30 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <a href="#" class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-boti-red flex items-center justify-center border border-boti-gold shadow-lg">
+                        <i class="fa-solid fa-crown text-boti-gold text-lg"></i>
+                    </div>
+                    <div>
+                        <span class="font-cinzel text-lg sm:text-xl font-black text-boti-sand tracking-wider block">KATALOG BOTI</span>
+                        <span class="text-[10px] text-boti-gold tracking-widest uppercase font-semibold">Timor Tengah Selatan</span>
+                    </div>
+                </a>
+
+                <nav class="hidden md:flex items-center space-x-2 text-xs font-semibold">
+                    <a href="#hero" class="px-4 py-2 rounded-lg bg-boti-red text-white">Beranda</a>
+                    <a href="#galeri" class="px-4 py-2 rounded-lg text-boti-sand hover:bg-boti-card hover:text-boti-gold transition">Galeri Foto</a>
+                    <a href="#pakaian-adat" class="px-4 py-2 rounded-lg text-boti-sand hover:bg-boti-card hover:text-boti-gold transition">Pakaian Adat</a>
+                    <a href="#video-budaya" class="px-4 py-2 rounded-lg text-boti-sand hover:bg-boti-card hover:text-boti-gold transition">Video Dokumenter</a>
+                    <a href="#lokasi" class="px-4 py-2 rounded-lg text-boti-sand hover:bg-boti-card hover:text-boti-gold transition">Peta Lokasi</a>
+                    <a href="#etika" class="px-4 py-2 rounded-lg text-boti-sand hover:bg-boti-card hover:text-boti-gold transition">Etika Adat</a>
+                </nav>
+
+                <button onclick="playWelcomingAudio()" class="px-3 py-2 bg-boti-card hover:bg-boti-gold hover:text-boti-dark border border-boti-gold/40 text-boti-gold text-xs font-bold rounded-xl transition flex items-center gap-2">
+                    <i class="fa-solid fa-volume-high"></i>
+                    <span class="hidden sm:inline">Salam Adat (Audio)</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="bg-black/60 border-t border-white/5 py-1.5 px-4 text-xs font-mono text-boti-muted">
+            <div class="max-w-7xl mx-auto">
+                <span class="text-boti-gold font-bold"><i class="fa-solid fa-house"></i> Beranda Utama / Katalog & Galeri Visual Suku Boti</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow">
+        <!-- ========================================== -->
+        <!-- 3. HERO SECTION / UCAPAN SELAMAT DATANG -->
+        <!-- ========================================== -->
+        <section id="hero" class="relative py-16 lg:py-20 overflow-hidden border-b border-white/10">
+            <div class="absolute inset-0 bg-[radial-gradient(#7C1C1C_1px,transparent_1px)] [background-size:24px_24px] opacity-15"></div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+                <span class="px-4 py-1.5 bg-boti-red/80 border border-boti-gold/50 text-boti-gold text-xs font-bold rounded-full uppercase tracking-widest inline-block mb-6 shadow-md">
+                    Tabe, Uis Neno Uis Pah
+                </span>
+                
+                <h1 class="font-cinzel text-3xl sm:text-5xl lg:text-6xl font-extrabold text-boti-sand mb-6 leading-tight">
+                    Selamat Datang di Katalog Interaktif <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-boti-gold via-amber-200 to-boti-gold">Masyarakat Adat Suku Boti</span>
+                </h1>
+                
+                <p class="text-base sm:text-lg text-boti-muted max-w-3xl mx-auto mb-10 leading-relaxed">
+                    Eksplorasi warisan kebudayaan murni pedalaman Timor Tengah Selatan. Temukan kearifan falsafah hidup, arsitektur tradisional <span class="text-boti-sand font-semibold">Ume Kbubu</span>, mahakarya <span class="text-boti-sand font-semibold">Tenun Ikat</span>, serta dokumentasi kehidupan Suku Boti Dalam.
+                </p>
+
+                <div class="flex flex-wrap justify-center gap-4">
+                    <a href="#galeri" class="px-8 py-4 bg-boti-red hover:bg-red-800 text-white font-bold text-sm rounded-2xl shadow-lg border border-boti-gold/30 transition flex items-center gap-3">
+                        <i class="fa-solid fa-images"></i>
+                        <span>Lihat Galeri Foto</span>
+                    </a>
+                    <a href="#video-budaya" class="px-8 py-4 bg-boti-card hover:border-boti-gold text-boti-gold font-bold text-sm rounded-2xl border border-white/10 transition flex items-center gap-3">
+                        <i class="fa-solid fa-circle-play text-lg"></i>
+                        <span>Tonton Video Dokumenter</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- 4. GALERI VISUAL BOTI (GAMBAR LOKAL INTERAKTIF) -->
+        <!-- ========================================== -->
+        <section id="galeri" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-b border-white/10">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-10">
+                <div>
+                    <span class="text-boti-gold font-mono text-xs font-bold uppercase tracking-wider block mb-1">Dokumentasi Visual</span>
+                    <h2 class="font-cinzel text-2xl sm:text-3xl font-bold text-white">Galeri Foto Kebudayaan Suku Boti</h2>
+                </div>
+                <p class="text-xs text-boti-muted mt-2 md:mt-0 max-w-md">Klik pada gambar untuk memperbesar tampilan dan membaca deskripsi detail kebudayaan.</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Foto 1: Ume Kbubu -->
+                <div class="bg-boti-card rounded-2xl overflow-hidden border border-white/10 hover:border-boti-gold transition group cursor-pointer" onclick="openLightbox('gambar/umuekbubu.jpg', 'Ume Kbubu (Rumah Bulat)', 'Rumah tradisional Boti beratap ilalang tebal hingga menyentuh tanah. Pintu masuk yang rendah mengharuskan setiap tamu membungkuk sebagai bentuk penghormatan.')">
+                    <div class="relative h-56 overflow-hidden">
+                        <img src="gambar/umuekbubu.jpg" alt="Ume Kbubu Suku Boti" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-boti-dark via-transparent opacity-80"></div>
+                        <span class="absolute bottom-3 left-3 bg-boti-red text-white text-[10px] font-bold px-2 py-1 rounded">Arsitektur</span>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-cinzel text-lg font-bold text-white group-hover:text-boti-gold transition">Ume Kbubu (Rumah Bulat)</h3>
+                        <p class="text-xs text-boti-muted mt-1 line-clamp-2">Rumah khas Timor beratap ilalang tebal penyimpan bahan pangan dan pusat kehidupan keluarga.</p>
+                    </div>
+                </div>
+
+                <!-- Foto 2: Tenun Ikat Boti -->
+                <div class="bg-boti-card rounded-2xl overflow-hidden border border-white/10 hover:border-boti-gold transition group cursor-pointer" onclick="openLightbox('gambar/tenun_ikat.jpg', 'Motif Tenun Ikat Tradisional', 'Tenun ikat Boti menggunakan pewarna alami dari tanaman seperti mengkudu dan tarum. Digunakan dalam acara adat serta pakaian sehari-hari.')">
+                    <div class="relative h-56 overflow-hidden">
+                        <img src="gambar/tenun_ikat.jpg" alt="Tenun Ikat Boti" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-boti-dark via-transparent opacity-80"></div>
+                        <span class="absolute bottom-3 left-3 bg-boti-red text-white text-[10px] font-bold px-2 py-1 rounded">Kain Adat</span>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-cinzel text-lg font-bold text-white group-hover:text-boti-gold transition">Motif Tenun Ikat Alami</h3>
+                        <p class="text-xs text-boti-muted mt-1 line-clamp-2">Mahakarya tenunan benang kapas dengan pewarnaan alami tumbuhan setempat.</p>
+                    </div>
+                </div>
+
+                <!-- Foto 4: Adat (Pakaian Adat Suku Boti) -->
+                <div class="bg-boti-card rounded-2xl overflow-hidden border border-white/10 hover:border-boti-gold transition group cursor-pointer" onclick="openLightbox('gambar/adat.jpg', 'Pakaian & Busana Adat Suku Boti', 'Pakaian tradisional Suku Boti terbuat dari kain tenun buatan tangan sendiri dengan benang kapas alami dan pewarna dari tumbuhan. Laki-laki membiarkan rambut panjang dikonde dan mengenakan selimut tenun, sedangkan wanita mengenakan sarung tenun khas.')">
+                    <div class="relative h-56 overflow-hidden">
+                        <img src="gambar/adat.jpg" alt="Adat" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-boti-dark via-transparent opacity-80"></div>
+                        <span class="absolute bottom-3 left-3 bg-boti-red text-white text-[10px] font-bold px-2 py-1 rounded">Pakaian Adat</span>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-cinzel text-lg font-bold text-white group-hover:text-boti-gold transition">PAKAIAN ADAT</h3>
+                        <p class="text-xs text-boti-muted mt-1 line-clamp-2">Busana tenun tradisional hasil karya mandiri dengan simbol keagungan adat Suku Boti.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- 5. SEKSYEN PENJELASAN PAKAIAN ADAT SUKU BOTI -->
+        <!-- ========================================== -->
+        <section id="pakaian-adat" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-b border-white/10">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-10">
+                <div>
+                    <span class="text-boti-gold font-mono text-xs font-bold uppercase tracking-wider block mb-1">Kearifan Busana</span>
+                    <h2 class="font-cinzel text-2xl sm:text-3xl font-bold text-white">Pakaian & Identitas Busana Adat</h2>
+                </div>
+                <p class="text-xs text-boti-muted mt-2 md:mt-0 max-w-md">Masyarakat Boti memproduksi sendiri seluruh pakaian mereka dari kapas lokal tanpa bergantung pada industri modern.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Kartu Busana 1: Kain Tenun Pria & Wanita -->
+                <div class="bg-boti-card border border-white/10 rounded-2xl p-6 hover:border-boti-gold transition flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-boti-red/40 border border-boti-gold/40 flex items-center justify-center text-boti-gold text-xl mb-4">
+                            <i class="fa-solid fa-shirt"></i>
+                        </div>
+                        <h3 class="font-cinzel text-lg font-bold text-white mb-2">Selimut & Sarung Tenun</h3>
+                        <p class="text-xs text-boti-muted leading-relaxed mb-4">
+                            Pria Boti mengenakan selimut tenun (*Tais*) yang dililitkan di pinggang hingga lutut, sedangkan wanita mengenakan sarung tenun (*Sufu*) lengkap dengan kain selendang di bahu.
+                        </p>
+                    </div>
+                    <button onclick="openDetailModal('Selimut & Sarung Tenun Adat Boti', 'gambar/tenun_ikat.jpg', '<p class=\'mb-2\'>Pakaian masyarakat Suku Boti seluruhnya dihasilkan secara mandiri melalui pemintalan benang kapas hingga penenunan kain.</p><p class=\'mb-2\'><strong>Warna Alami:</strong> Menggunakan warna merah dari akar mengkudu, biru/hitam dari daun tarum, dan kuning dari kunyit.</p><p>Kain tenun ini tidak hanya berfungsi sebagai pelindung tubuh, tetapi juga menunjukkan identitas serta norma kebudayaan Boti Dalam.</p>')" class="w-full py-2 bg-boti-dark hover:bg-boti-red text-boti-gold hover:text-white text-xs font-bold rounded-xl border border-boti-gold/30 transition text-center">
+                        Detail Busana Tenun
+                    </button>
+                </div>
+
+                <!-- Kartu Busana 2: Tatanan Rambut & Konde -->
+                <div class="bg-boti-card border border-white/10 rounded-2xl p-6 hover:border-boti-gold transition flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-boti-red/40 border border-boti-gold/40 flex items-center justify-center text-boti-gold text-xl mb-4">
+                            <i class="fa-solid fa-user-tie"></i>
+                        </div>
+                        <h3 class="font-cinzel text-lg font-bold text-white mb-2">Tatanan Rambut (Konde)</h3>
+                        <p class="text-xs text-boti-muted leading-relaxed mb-4">
+                            Kaum pria Suku Boti membiarkan rambut mereka tumbuh panjang dan diikat rapi membentuk konde (*Fuk*) di kepala sebagai lambang kehormatan dan ikatan dengan alam.
+                        </p>
+                    </div>
+                    <button onclick="openDetailModal('Tatanan Rambut Tradisional Pria Boti', 'gambar/adat.jpg', '<p class=\'mb-2\'>Salah satu ciri khas pria Boti Dalam adalah rambut panjang yang digulung membentuk konde di bagian atas atau belakang kepala.</p><p class=\'mb-2\'><strong>Makna Falsafah:</strong> Rambut yang tidak dipotong melambangkan penghormatan terhadap pemberian alam dan Sang Pencipta (Uis Neno).</p><p>Tatanan ini dijaga dengan rapi menggunakan ikatan kain khusus yang diwariskan secara turun-temurun.</p>')" class="w-full py-2 bg-boti-dark hover:bg-boti-red text-boti-gold hover:text-white text-xs font-bold rounded-xl border border-boti-gold/30 transition text-center">
+                        Detail Konde & Falsafah
+                    </button>
+                </div>
+
+                <!-- Kartu Busana 3: Aksesori & Perhiasan -->
+                <div class="bg-boti-card border border-white/10 rounded-2xl p-6 hover:border-boti-gold transition flex flex-col justify-between">
+                    <div>
+                        <div class="w-12 h-12 rounded-xl bg-boti-red/40 border border-boti-gold/40 flex items-center justify-center text-boti-gold text-xl mb-4">
+                            <i class="fa-solid fa-gem"></i>
+                        </div>
+                        <h3 class="font-cinzel text-lg font-bold text-white mb-2">Aksesori & Kalung Etnik</h3>
+                        <p class="text-xs text-boti-muted leading-relaxed mb-4">
+                            Penggunaan kalung manik-manik, gelang perak/perunggu, serta mahkota kecil atau hiasan kepala khusus saat upacara adat berlangsung.
+                        </p>
+                    </div>
+                    <button onclick="openDetailModal('Aksesori & Perhiasan Adat Suku Boti', 'gambar/adat.jpg', '<p class=\'mb-2\'>Aksesori Boti terdiri dari kalung manik-manik berwarna kontras, gelang kuningan atau perak, serta tas sirih pinang (*Aluk*) yang selalu dibawa oleh pria maupun wanita.</p><p>Tas sirih pinang (*Aluk*) merupakan bagian wajib dari pakaian adat sebagai simbol keramahan dan penyambutan tamu.</p>')" class="w-full py-2 bg-boti-dark hover:bg-boti-red text-boti-gold hover:text-white text-xs font-bold rounded-xl border border-boti-gold/30 transition text-center">
+                        Detail Aksesori
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- 6. GALERI VIDEO DOKUMENTER BOTI -->
+        <!-- ========================================== -->
+        <section id="video-budaya" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-b border-white/10">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-10">
+                <div>
+                    <span class="text-boti-gold font-mono text-xs font-bold uppercase tracking-wider block mb-1">Dokumentasi Audio Visual</span>
+                    <h2 class="font-cinzel text-2xl sm:text-3xl font-bold text-white">Video Kehidupan & Tradisi Suku Boti</h2>
+                </div>
+                <p class="text-xs text-boti-muted mt-2 md:mt-0 max-w-md">Saksikan rekaman visual kehidupan sehari-hari, ritual adat, dan proses pembuatan kerajinan Suku Boti.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Video 1 -->
+                <div class="bg-boti-card rounded-2xl overflow-hidden border border-white/10 hover:border-boti-gold transition group flex flex-col justify-between">
+                    <div class="relative h-52 bg-black overflow-hidden flex items-center justify-center cursor-pointer" onclick="openVideoModal('vidio/kehidupansukuboti.mp4', 'Dokumenter Kehidupan Suku Boti Dalam')">
+                        <video class="w-full h-full object-cover opacity-70 group-hover:scale-105 transition duration-500" autoplay loop muted playsinline>
+                            <source src="vidio/kehidupansukuboti.mp4" type="video/mp4">
+                            Browser Anda tidak mendukung elemen video.
+                        </video>
+                        <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition"></div>
+                        <div class="w-14 h-14 rounded-full bg-boti-red/90 border border-boti-gold text-boti-gold flex items-center justify-center text-xl shadow-xl group-hover:scale-110 transition z-10">
+                            <i class="fa-solid fa-play ml-1"></i>
+                        </div>
+                        <span class="absolute bottom-3 left-3 bg-black/70 text-boti-gold text-[10px] font-mono font-bold px-2 py-1 rounded border border-boti-gold/30">
+                            <i class="fa-solid fa-film mr-1"></i> Video Dokumenter
+                        </span>
+                    </div>
+                    <div class="p-5 flex-grow flex flex-col justify-between">
+                        <div>
+                            <h3 class="font-cinzel text-base font-bold text-white mb-2 group-hover:text-boti-gold transition">Dokumenter Kehidupan Suku Boti</h3>
+                            <p class="text-xs text-boti-muted leading-relaxed mb-4">Mengenal lebih dekat kehidupan sosial dan nilai-nilai kearifan lokal Suku Boti Dalam.</p>
+                        </div>
+                        <button onclick="openVideoModal('vidio/kehidupansukuboti.mp4', 'Dokumenter Kehidupan Suku Boti Dalam')" class="w-full py-2.5 bg-boti-red/80 hover:bg-boti-red text-white text-xs font-bold rounded-xl transition border border-boti-gold/30 flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-circle-play"></i>
+                            <span>Putar Video</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Video 2 -->
+                <div class="bg-boti-card rounded-2xl overflow-hidden border border-white/10 hover:border-boti-gold transition group flex flex-col justify-between">
+                    <div class="relative h-52 bg-black overflow-hidden flex items-center justify-center cursor-pointer" onclick="openVideoModal('vidio/tenunikat.mp4', 'Proses Pembuatan Tenun Ikat Alami')">
+                        <video class="w-full h-full object-cover opacity-70 group-hover:scale-105 transition duration-500" autoplay loop muted playsinline>
+                            <source src="vidio/tenunikat.mp4" type="video/mp4">
+                            Browser Anda tidak mendukung elemen video.
+                        </video>
+                        <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition"></div>
+                        <div class="w-14 h-14 rounded-full bg-boti-red/90 border border-boti-gold text-boti-gold flex items-center justify-center text-xl shadow-xl group-hover:scale-110 transition z-10">
+                            <i class="fa-solid fa-play ml-1"></i>
+                        </div>
+                        <span class="absolute bottom-3 left-3 bg-black/70 text-boti-gold text-[10px] font-mono font-bold px-2 py-1 rounded border border-boti-gold/30">
+                            <i class="fa-solid fa-film mr-1"></i> Video Kerajinan
+                        </span>
+                    </div>
+                    <div class="p-5 flex-grow flex flex-col justify-between">
+                        <div>
+                            <h3 class="font-cinzel text-base font-bold text-white mb-2 group-hover:text-boti-gold transition">Proses Pembuatan Tenun Ikat</h3>
+                            <p class="text-xs text-boti-muted leading-relaxed mb-4">Tahapan pemintalan benang kapas hingga pewarnaan menggunakan bahan-bahan alami.</p>
+                        </div>
+                        <button onclick="openVideoModal('vidio/tenunikat.mp4', 'Proses Pembuatan Tenun Ikat Alami')" class="w-full py-2.5 bg-boti-red/80 hover:bg-boti-red text-white text-xs font-bold rounded-xl transition border border-boti-gold/30 flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-circle-play"></i>
+                            <span>Putar Video</span>
+                        </button>
+                    </div>
+                </div>
+
+              <!-- Video 3: Tarian Tradisional Suku Boti -->
+                <div class="bg-boti-card rounded-2xl overflow-hidden border border-white/10 hover:border-boti-gold transition group flex flex-col justify-between">
+                    <div class="relative h-52 bg-black overflow-hidden flex items-center justify-center cursor-pointer" onclick="openVideoModal('vidio/tarian.mp4', 'Tarian Tradisional Suku Boti')">
+                        <video class="w-full h-full object-cover opacity-70 group-hover:scale-105 transition duration-500" autoplay loop muted playsinline>
+                            <source src="vidio/tarian.mp4" type="video/mp4">
+                            Browser Anda tidak mendukung elemen video.
+                        </video>
+                        <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition"></div>
+                        <div class="w-14 h-14 rounded-full bg-boti-red/90 border border-boti-gold text-boti-gold flex items-center justify-center text-xl shadow-xl group-hover:scale-110 transition z-10">
+                            <i class="fa-solid fa-play ml-1"></i>
+                        </div>
+                        <span class="absolute bottom-3 left-3 bg-black/70 text-boti-gold text-[10px] font-mono font-bold px-2 py-1 rounded border border-boti-gold/30">
+                            <i class="fa-solid fa-film mr-1"></i> Video Tarian Adat
+                        </span>
+                    </div>
+                    <div class="p-5 flex-grow flex flex-col justify-between">
+                        <div>
+                            <h3 class="font-cinzel text-base font-bold text-white mb-2 group-hover:text-boti-gold transition">Tarian Tradisional Suku Boti</h3>
+                            <p class="text-xs text-boti-muted leading-relaxed mb-4">Pertunjukan tarian adat khas Suku Boti yang dibawakan saat menyambut tamu kehormatan serta perayaan upacara syukuran.</p>
+                        </div>
+                        <button onclick="openVideoModal('vidio/tarian.mp4', 'Tarian Tradisional Suku Boti')" class="w-full py-2.5 bg-boti-red/80 hover:bg-boti-red text-white text-xs font-bold rounded-xl transition border border-boti-gold/30 flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-circle-play"></i>
+                            <span>Putar Video</span>
+                        </button>
+                    </div>
+                </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- 7. PETA & LOKASI GEOGRAFIS SUKU BOTI -->
+        <!-- ========================================== -->
+        <section id="lokasi" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-b border-white/10">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-10">
+                <div>
+                    <span class="text-boti-gold font-mono text-xs font-bold uppercase tracking-wider block mb-1">Letak Geografis</span>
+                    <h2 class="font-cinzel text-2xl sm:text-3xl font-bold text-white">Lokasi Kampung Adat Suku Boti</h2>
+                </div>
+                <p class="text-xs text-boti-muted mt-2 md:mt-0 max-w-md">Terletak di pegunungan terpencil Kabupaten Timor Tengah Selatan, Nusa Tenggara Timur.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+                <!-- Peta Google Maps Embed -->
+                <div class="lg:col-span-7 bg-boti-card border border-white/10 rounded-3xl overflow-hidden shadow-xl min-h-[350px] flex flex-col">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1fradius!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2c56f345db5522e5%3A0x6b88c691f1a56ec3!2sDesa%20Boti%2C%20Kec.%20Ki&#39;e%2C%20Kabupaten%20Timor%20Tengah%20Selatan%2C%20Nusa%20Tenggara%20Tim.!5e0!3m2!1sid!2sid!4v1710000000000!5m2!1sid!2sid" 
+                        class="w-full h-full min-h-[350px] border-0" 
+                        allowfullscreen="" 
+                        loading="lazy" 
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+
+                <!-- Detail Kartu Akses & Lokasi -->
+                <div class="lg:col-span-5 bg-boti-card border border-boti-gold/30 rounded-3xl p-6 sm:p-8 flex flex-col justify-between space-y-6">
+                    <div>
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 rounded-xl bg-boti-red/30 border border-boti-gold/50 flex items-center justify-center text-boti-gold">
+                                <i class="fa-solid fa-location-dot text-lg"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-cinzel text-lg font-bold text-white">Desa Boti, Kec. Ki'e</h3>
+                                <p class="text-xs text-boti-gold">Kabupaten Timor Tengah Selatan, NTT</p>
+                            </div>
+                        </div>
+
+                        <div class="space-y-4 text-xs text-boti-sand">
+                            <div class="p-3 bg-black/40 rounded-xl border border-white/5 flex gap-3">
+                                <i class="fa-solid fa-map-pin text-boti-gold mt-0.5"></i>
+                                <div>
+                                    <strong class="text-white block mb-0.5">Koordinat Geografis:</strong>
+                                    <span class="font-mono text-boti-muted">9°52'28"S 124°34'02"E</span>
+                                </div>
+                            </div>
+
+                            <div class="p-3 bg-black/40 rounded-xl border border-white/5 flex gap-3">
+                                <i class="fa-solid fa-route text-boti-gold mt-0.5"></i>
+                                <div>
+                                    <strong class="text-white block mb-0.5">Jarak & Waktu Tempuh:</strong>
+                                    <p class="text-boti-muted">
+                                        • Dari Kota So'e (Ibu Kota TTS): ± 40 km (1.5 - 2 jam perjalanan)<br>
+                                        • Dari Kota Kupang: ± 150 km (4 - 5 jam perjalanan)
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="p-3 bg-black/40 rounded-xl border border-white/5 flex gap-3">
+                                <i class="fa-solid fa-mountain-sun text-boti-gold mt-0.5"></i>
+                                <div>
+                                    <strong class="text-white block mb-0.5">Kondisi Akses Jalan:</strong>
+                                    <p class="text-boti-muted">
+                                        Perjalanan melewati perbukitan berkelok. Beberapa km terakhir menuju Kampung Boti Dalam berupa jalan berbatu/tanah yang disarankan menggunakan kendaraan SUV/Roda Dua.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a href="https://maps.google.com/?q=Desa+Boti+Kie+Timor+Tengah+Selatan" target="_blank" class="w-full py-3 bg-boti-gold hover:bg-white text-boti-dark font-bold text-xs rounded-xl transition text-center flex items-center justify-center gap-2 shadow-lg">
+                        <i class="fa-solid fa-diamond-turn-right"></i>
+                        <span>Buka Rute Lengkap di Google Maps</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- 8. HIGHLIGHT ETIKA ADAT -->
+        <!-- ========================================== -->
+        <section id="etika" class="py-12 bg-black/40 border-t border-white/10">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="bg-boti-card border border-boti-gold/30 rounded-3xl p-8 flex flex-col md:flex-row items-center justify-between gap-6">
+                    <div class="space-y-2 text-center md:text-left">
+                        <span class="text-boti-gold font-bold text-xs uppercase tracking-wider"><i class="fa-solid fa-hand-holding-heart"></i> Penghormatan Budaya</span>
+                        <h3 class="font-cinzel text-xl font-bold text-white">Pemberitahuan untuk Pengunjung / Wisatawan</h3>
+                        <p class="text-xs text-boti-muted max-w-xl">
+                            Masyarakat Boti Dalam memegang teguh adat istiadat murni. Sebelum berkunjung, diharapkan menyiapkan sirih pinang sebagai tanda penghormatan saat menghadap Raja Usif Benu.
+                        </p>
+                    </div>
+                    <button onclick="alert('Etika Berkunjung:\n1. Melapor ke Lopo Raja Usif Benu\n2. Membawa Sirih Pinang\n3. Meminta izin sebelum mengambil foto')" class="px-6 py-3 bg-boti-gold text-boti-dark font-bold text-xs rounded-xl hover:bg-white transition whitespace-nowrap">
+                        Panduan Lengkap Etika
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ========================================== -->
+    <!-- 9. MODAL LIGHTBOX FOTO (PEMBESAR GAMBAR) -->
+    <!-- ========================================== -->
+    <div id="lightbox" class="fixed inset-0 bg-black/95 z-50 hidden flex items-center justify-center p-4">
+        <div class="relative max-w-3xl w-full bg-boti-card border border-boti-gold rounded-3xl overflow-hidden shadow-2xl">
+            <button onclick="closeLightbox()" class="absolute top-4 right-4 bg-black/60 text-white hover:text-boti-gold w-10 h-10 rounded-full flex items-center justify-center text-xl z-10">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <img id="lightbox-img" src="" alt="" class="w-full h-80 sm:h-96 object-cover">
+            <div class="p-6">
+                <h3 id="lightbox-title" class="font-cinzel text-xl font-bold text-boti-gold mb-2"></h3>
+                <p id="lightbox-desc" class="text-xs text-boti-sand leading-relaxed"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- 10. MODAL PEMUTAR VIDEO (INTERAKTIF) -->
+    <!-- ========================================== -->
+    <div id="video-modal" class="fixed inset-0 bg-black/95 z-50 hidden flex items-center justify-center p-4">
+        <div class="relative max-w-4xl w-full bg-boti-card border border-boti-gold rounded-3xl overflow-hidden shadow-2xl">
+            <button onclick="closeVideoModal()" class="absolute top-4 right-4 bg-black/60 text-white hover:text-boti-gold w-10 h-10 rounded-full flex items-center justify-center text-xl z-10">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="p-4 sm:p-6">
+                <h3 id="video-title" class="font-cinzel text-lg sm:text-xl font-bold text-boti-gold mb-4 pr-10"></h3>
+                <div class="relative aspect-video w-full rounded-2xl overflow-hidden bg-black border border-white/10">
+                    <video id="player-video" controls class="w-full h-full">
+                        <source id="video-source" src="" type="video/mp4">
+                        Browser Anda tidak mendukung pemutar video.
+                    </video>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- 11. MODAL DETAIL KOLEKSI (INTERAKTIF) -->
+    <!-- ========================================== -->
+    <div id="detail-modal" class="fixed inset-0 bg-black/95 z-50 hidden flex items-center justify-center p-4">
+        <div class="relative max-w-2xl w-full bg-boti-card border border-boti-gold rounded-3xl overflow-hidden shadow-2xl">
+            <button onclick="closeDetailModal()" class="absolute top-4 right-4 bg-black/60 text-white hover:text-boti-gold w-10 h-10 rounded-full flex items-center justify-center text-xl z-10">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="p-6">
+                <h3 id="detail-title" class="font-cinzel text-xl font-bold text-boti-gold mb-3 pr-10"></h3>
+                <img id="detail-img" src="" alt="Detail Gambar" class="w-full h-56 object-cover rounded-2xl border border-white/10 mb-4">
+                <div id="detail-desc" class="text-xs text-boti-sand leading-relaxed space-y-2 max-h-60 overflow-y-auto pr-2"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-boti-dark border-t border-white/10 py-8 text-center text-xs text-boti-muted">
+        <div class="max-w-7xl mx-auto px-4">
+            <p class="font-cinzel font-bold text-boti-gold text-sm mb-2">KATALOG DIGITAL SUKU BOTI</p>
+            <p>Sistem Informasi Arsitektur Hypermedia Interaktif &copy; 2026</p>
+        </div>
+    </footer>
+
+    <!-- ========================================== -->
+    <!-- 12. JAVASCRIPT LOGIC LENGKAP -->
+    <!-- ========================================== -->
+    <script>
+        const botiQuotes = [
+            '"Tabe, Uis Neno Uis Pah — Salam penghormatan kepada Dewa Langit & Bumi."',
+            '"Nekaf Mese Anzaf Mese — Satu hati, satu pikiran untuk kebaikan bersama."',
+            '"Masyarakat Boti Dalam menjaga keselarasan hidup murni bersama alam."',
+            '"Ume Kbubu — Rumah bulat beratap ilalang tempat menjaga kehangatan keluarga."'
+        ];
+
+        const loadingStatuses = [
+            "Menyiapkan aset kebudayaan...",
+            "Memuat struktur graf hypermedia...",
+            "Mengoptimalkan gambar & video...",
+            "Sistem siap digunakan!"
+        ];
+
+        let progress = 0;
+        let quoteIndex = 0;
+
+        const progressBar = document.getElementById('progress-bar');
+        const progressText = document.getElementById('loading-percentage');
+        const statusText = document.getElementById('loading-status');
+        const quoteText = document.getElementById('boti-quote');
+        const loadingScreen = document.getElementById('loading-screen');
+        const mainBody = document.getElementById('main-body');
+
+        const quoteInterval = setInterval(() => {
+            quoteIndex = (quoteIndex + 1) % botiQuotes.length;
+            quoteText.style.opacity = '0';
+            setTimeout(() => {
+                quoteText.innerText = botiQuotes[quoteIndex];
+                quoteText.style.opacity = '1';
+            }, 300);
+        }, 1200);
+
+        const loadingInterval = setInterval(() => {
+            progress += Math.floor(Math.random() * 12) + 5;
+
+            if (progress >= 100) {
+                progress = 100;
+                clearInterval(loadingInterval);
+                clearInterval(quoteInterval);
+
+                progressBar.style.width = '100%';
+                progressText.innerText = '100%';
+                statusText.innerText = loadingStatuses[3];
+
+                setTimeout(() => {
+                    loadingScreen.classList.add('fade-out');
+                    mainBody.classList.remove('overflow-hidden');
+                }, 600);
+            } else {
+                progressBar.style.width = `${progress}%`;
+                progressText.innerText = `${progress}%`;
+
+                if (progress < 35) {
+                    statusText.innerText = loadingStatuses[0];
+                } else if (progress < 70) {
+                    statusText.innerText = loadingStatuses[1];
+                } else {
+                    statusText.innerText = loadingStatuses[2];
+                }
+            }
+        }, 200);
+
+        function playWelcomingAudio() {
+            const salamText = "Tabe, Uis Neno Uis Pah. Selamat datang di Katalog Digital Kebudayaan Suku Boti Timor Tengah Selatan.";
+            
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(salamText);
+                utterance.lang = 'id-ID';
+                utterance.rate = 0.85;
+                window.speechSynthesis.speak(utterance);
+            } else {
+                alert(salamText);
+            }
+        }
+
+        // Modal Lightbox Foto Interaktif
+        function openLightbox(imgSrc, title, desc) {
+            document.getElementById('lightbox-img').src = imgSrc;
+            document.getElementById('lightbox-title').innerText = title;
+            document.getElementById('lightbox-desc').innerText = desc;
+            document.getElementById('lightbox').classList.remove('hidden');
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.add('hidden');
+        }
+
+        // Modal Pemutar Video Interaktif
+        function openVideoModal(videoSrc, title) {
+            const player = document.getElementById('player-video');
+            const source = document.getElementById('video-source');
+            
+            document.getElementById('video-title').innerText = title || 'Pemutar Video';
+            source.src = videoSrc;
+            player.load();
+            document.getElementById('video-modal').classList.remove('hidden');
+            
+            player.play().catch(error => {
+                console.log("Autoplay diblokir oleh browser atau file tidak ditemukan:", error);
+            });
+        }
+
+        function closeVideoModal() {
+            const player = document.getElementById('player-video');
+            player.pause();
+            player.currentTime = 0;
+            document.getElementById('video-modal').classList.add('hidden');
+        }
+
+        // Modal Detail Koleksi
+        function openDetailModal(title, imgSrc, descHTML) {
+            document.getElementById('detail-title').innerText = title || 'Detail Koleksi';
+            document.getElementById('detail-img').src = imgSrc;
+            document.getElementById('detail-desc').innerHTML = descHTML;
+            document.getElementById('detail-modal').classList.remove('hidden');
+        }
+
+        function closeDetailModal() {
+            document.getElementById('detail-modal').classList.add('hidden');
+        }
+
+        // Event Listener untuk menutup modal saat menekan tombol ESC
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape') {
+                closeLightbox();
+                closeVideoModal();
+                closeDetailModal();
+            }
+        });
+
+        // Event Listener untuk menutup modal saat mengklik area di luar konten modal (Backdrop)
+        window.addEventListener('click', function (event) {
+            const lightbox = document.getElementById('lightbox');
+            const videoModal = document.getElementById('video-modal');
+            const detailModal = document.getElementById('detail-modal');
+
+            if (event.target === lightbox) {
+                closeLightbox();
+            }
+            if (event.target === videoModal) {
+                closeVideoModal();
+            }
+            if (event.target === detailModal) {
+                closeDetailModal();
+            }
+        });
+    </script>
+</body>
+</html>
